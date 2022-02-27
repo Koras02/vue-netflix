@@ -1,26 +1,69 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { toRefs, watch} from "vue";
+import { useQueryProvider } from "vue-query";
+import "animate.css";
+import Header from './components/Header.vue';
+import { state } from './store'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+   components: {
+     Header,
+   },
+   setup() {
+     useQueryProvider({
+       defaultOptions: {
+         queries: {
+           refetchOnWindowFocus: false,
+           refetchOnMount: false,
+         },
+       },
+     });
+
+     watch (
+       () => state.isModalActive,
+       () => {
+         setTimeout(function () {
+             window.scrollTo({
+               left: 0,
+               top: state.scrollTop,
+             });
+         },0)
+       }
+     );
+     return {
+       ...toRefs(state)
+     }
+   }
 }
+
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <Header />
+  <div
+    class="min-h-screen"
+    :style="[isModalActive && `margin-top: -${scrollTop}px`]"
+  >
+    <router-view v-slot="{ Component, route }">
+      <transition
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOut"
+        mode="out-in"
+      >
+        <component
+          :is="Component"
+          :class="[isModalActive && 'fixed']"
+          :key="route.fullPath"
+        />
+      </transition>
+    </router-view>
+  </div>
+  <transition
+    enter-active-class="animate__animated animate__fadeIn"
+    leave-active-class="animate__animated animate__fadeOut"
+  >
+    </transition>
+</template>
+
+
+
