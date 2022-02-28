@@ -24,7 +24,7 @@ yarn lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 # vue-netflix
 ### example
-(./img.jpg)
+![poster](https://ifh.cc/g/i1rOJ0.jpg)
 
 -Netflix 
 
