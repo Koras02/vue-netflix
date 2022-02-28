@@ -21,9 +21,9 @@ export const getTrendingTVShows = queryPageEndpoint('/trending/tv/week', {
 export const getPopularTVShows = queryPageEndpoint('/tv/popular');
 export const getTopRatedTVShows = queryPageEndpoint('/tv/top_rated');
 export const getTVShowDetails = queryEndpoint(({ tvId }) => `/tv/${tvId}`);
-export const getTvShowImage = queryEndpoint(({ tvId }) => `/tv/${tvId}/images`);
+export const getTVShowImage = queryEndpoint(({ tvId }) => `/tv/${tvId}/images`);
 export const getSimilarTVShows = queryEndpoint(({ tvId }) => `/tv/${tvId}/similar`);
-export const getGenresTVShows = queryEndpoint(({ genreId }) => `/discover/tv?with_genres=${genreId}`);
+export const getGenresTVShows = queryPageEndpoint(({ genreId }) => `/discover/tv?with_genres=${genreId}`);
 
 export const BROWSE_ITEMS = [
     {
