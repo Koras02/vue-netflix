@@ -11,4 +11,21 @@
 
 <script>
   import useQuery from '../hooks/useQuery';
+  import VideoCarouselSkeleton from "../skeletons/VideoCardSkeleton.vue";
+  import VideoCarousel from './VideoCarousel.vue';
+
+  export default {
+    props: ["queryFn", "title", "name"],
+    components: {
+      VideoCarousel,
+      VideoCarouselSkeleton,
+    },
+    setup(props) {
+      const [data, isLoading, isError] = useQuery(props.name, props.queryFn);
+
+      return { data, isLoading, isError};
+    } 
+  }
+
+
 </script>

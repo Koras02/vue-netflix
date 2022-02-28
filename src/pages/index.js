@@ -1,35 +1,38 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-const BrowserPage = () => import('./BrowsePage/index.vue');
-// const SearchPage = () => import("./SearchPage/index.vue");
+const BrowsePage = () => import('./BrowsePage/index.vue');
+const SearchPage = () => import('./SearchPage/index.vue');
 
 const routes = [
     {
         path: '/',
-        component: BrowserPage,
+        component: BrowsePage,
         name: 'Home',
         props: { isHeader: true },
     },
     {
         path: '/browse/tv',
-        component: BrowserPage,
+        component: BrowsePage,
         name: 'TV Shows',
         props: { isHeader: true },
     },
     {
         path: '/browse/movies',
-        compoennt: BrowserPage,
+        component: BrowsePage,
         name: 'Movies',
         props: { isHeader: true },
     },
     {
         path: '/browse/popular',
-        compoent: BrowserPage,
+        component: BrowsePage,
         name: 'New & Popular',
         props: { isHeader: true },
     },
     {
         path: '/search',
+        component: SearchPage,
+        name: 'Search',
+        props: { isHeader: false },
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
 ];
@@ -37,7 +40,7 @@ const routes = [
 const router = createRouter({
     history: createWebHashHistory(),
     routes,
-    scrollBehavior(to, _, savedPosition) {
+    scrollBehavior(to, __, savedPosition) {
         if (to.query.scrollTop) {
             return { left: 0, top: to.query.scrollTop };
         }

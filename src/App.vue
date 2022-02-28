@@ -4,10 +4,12 @@ import { useQueryProvider } from "vue-query";
 import "animate.css";
 import Header from './components/Header.vue';
 import { state } from './store'
+import Footer from './components/Footer.vue'
 
 export default {
    components: {
      Header,
+     Footer,
    },
    setup() {
      useQueryProvider({
@@ -63,6 +65,9 @@ export default {
     leave-active-class="animate__animated animate__fadeOut"
   >
     </transition>
+
+    <Footer />
+
 </template>
 
 

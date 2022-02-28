@@ -7,6 +7,7 @@ const initialState = reactive({
 });
 
 export const setModalActive = function (isActive) {
+    // Keep scrollTop
     if (isActive) {
         const scrollTop = document.documentElement.scrollTop;
 
