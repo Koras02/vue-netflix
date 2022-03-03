@@ -3,6 +3,7 @@ import { toRefs, watch} from "vue";
 import { useQueryProvider } from "vue-query";
 import "animate.css";
 import Header from './components/Header.vue';
+import DetailsModal from './components/DetailsModal.vue'
 import { state } from './store'
 import Footer from './components/Footer.vue'
 
@@ -10,6 +11,7 @@ export default {
    components: {
      Header,
      Footer,
+     DetailsModal
    },
    setup() {
      useQueryProvider({
@@ -64,8 +66,8 @@ export default {
     enter-active-class="animate__animated animate__fadeIn"
     leave-active-class="animate__animated animate__fadeOut"
   >
+     <DetailsModal v-if="isModalActive" />
     </transition>
-
     <Footer />
 
 </template>

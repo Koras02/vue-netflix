@@ -48,11 +48,11 @@
 <script>
 import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
 import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
+
 import { ref } from "vue";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
-
 
 import VideoCard from "./VideoCard.vue";
 
@@ -80,15 +80,18 @@ export default {
           slidesPerView: 6,
           slidesPerGroup: 6,
         },
+
         1024: {
           slidesPerView: 5,
           slidesPerGroup: 5,
         },
+
         768: {
           slidesPerView: 4,
           slidesPerGroup: 4,
           spaceBetween: 3,
         },
+
         640: {
           slidesPerView: 3,
           slidesPerGroup: 3,
@@ -96,29 +99,36 @@ export default {
         },
       },
     };
+
     const handleToggleButton = (swiper) => {
       const prevButton = container.value.querySelector(".swiper-button-prev");
       const nextButton = container.value.querySelector(".swiper-button-next");
+
       if (swiper.isBeginning && !swiper.params.loop) {
         prevButton.classList.add("swiper-button-disabled");
       } else {
         prevButton.classList.remove("swiper-button-disabled");
       }
+
       if (swiper.isEnd && !swiper.params.loop) {
         nextButton.classList.add("swiper-button-disabled");
       } else {
         nextButton.classList.remove("swiper-button-disabled");
       }
+
       handleSlideHover();
     };
+
     const listenCardHovering = () => {
       const config = {
         attributes: true,
         subtree: true,
       };
+
       const callback = function (mutations) {
         for (let mutation of mutations) {
           const { target } = mutation;
+
           if (target.classList.contains("animate-card-hover")) {
             childHovering.value = true;
           } else if (target.classList.contains("animate-card-unhover")) {
@@ -126,37 +136,47 @@ export default {
           }
         }
       };
+
       const observer = new MutationObserver(callback);
+
       observer.observe(container.value, config);
     };
+
     const handleSlideHover = () => {
       const slides = [
         ...container.value.querySelectorAll(
           ".swiper-slide.swiper-slide-visible .video-card"
         ),
       ];
+
       const firstElement = slides[0];
       const lastElement = slides[slides.length - 1];
+
       firstElement.style.transformOrigin = "left center";
       lastElement.style.transformOrigin = "right center";
     };
+
     const onReady = (swiper) => {
       const prevButton = container.value.querySelector(".swiper-button-prev");
       const nextButton = container.value.querySelector(".swiper-button-next");
+
       prevButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (swiper.isBeginning && !swiper.params.loop) return;
         swiper.slidePrev();
       });
+
       nextButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (swiper.isEnd && !swiper.params.loop) return;
         swiper.slideNext();
       });
+
       handleToggleButton(swiper);
       listenCardHovering();
       handleSlideHover();
     };
+
     return {
       options,
       container,
@@ -179,35 +199,45 @@ export default {
 .swiper {
   overflow: visible;
 }
+
 .swiper-button-disabled {
   display: none;
 }
+
 .swiper:hover .swiper-button svg,
 .swiper:hover .swiper-pagination {
   visibility: visible;
 }
+
 .swiper-button svg {
   visibility: hidden;
 }
+
 .swiper-button-next,
 .swiper-button-prev {
   @apply absolute h-full w-6 md:w-12 mt-0 top-0 bg-black bg-opacity-50;
   z-index: 2;
 }
+
 .swiper-button-prev {
   @apply -left-6 md:-left-12;
 }
+
 .swiper-button-next {
   @apply -right-6 md:-right-12;
 }
+
 .swiper-pagination {
   @apply space-x-1 w-24 h-0.5 absolute right-0 -top-4 flex invisible;
 }
+
 .swiper-pagination-bullet {
   @apply h-full bg-secondary hidden md:block;
   flex: 1 1 0%;
 }
+
 .swiper-pagination-bullet-active {
   @apply bg-white;
 }
 </style>
+
